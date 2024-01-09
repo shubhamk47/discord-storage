@@ -20,6 +20,7 @@ public class MediaChunks {
     @JoinColumn(name = "uploaded_media_id")
     private UploadedMedia uploadedMedia;
     private String chunkUrl;
+    private String chunkName;
 
 
 }

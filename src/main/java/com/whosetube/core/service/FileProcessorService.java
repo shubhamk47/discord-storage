@@ -11,6 +11,6 @@ import java.net.MalformedURLException;
 public interface FileProcessorService {
 
     void processFile(BaseRequest<Media> mediaBaseRequest) throws IOException;
-    void mergeFile(MessageChannel channel) throws IOException;
+    void mergeFile(MessageChannel channel, String fileName) throws IOException;
 
 }

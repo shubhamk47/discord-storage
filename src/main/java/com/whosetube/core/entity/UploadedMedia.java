@@ -17,7 +17,6 @@ public class UploadedMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String filePath;
     private String fileName;
     private String fileExtension;
     private String owner;

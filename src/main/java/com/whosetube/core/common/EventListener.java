@@ -1,7 +1,6 @@
 package com.whosetube.core.common;
 
 import discord4j.core.event.domain.Event;
-import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;

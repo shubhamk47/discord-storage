@@ -1,6 +1,5 @@
 package com.whosetube.core.common;
 
-import discord4j.common.util.Snowflake;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

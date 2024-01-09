@@ -1,6 +1,5 @@
 package com.whosetube.core.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.whosetube.core.model.BaseRequest;
@@ -9,19 +8,15 @@ import com.whosetube.core.model.Media;
 import com.whosetube.core.service.FileProcessorService;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.channel.MessageChannel;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 
 @Log4j2
@@ -45,11 +40,11 @@ public class MediaUploaderController {
         return ResponseEntity.ok("uploaded");
     }
 
-    @GetMapping(value = "/video")
-    public ResponseEntity<?> downloadVideo() throws IOException {
+    @GetMapping(value = "/video/{fileName}")
+    public ResponseEntity<?> downloadVideo(@PathVariable(value = "fileName") String fileName) throws IOException {
         Snowflake snowflake = Snowflake.of("1188817673165996096");
         MessageChannel channel = (MessageChannel) gatewayDiscordClient.getChannelById(snowflake).block();
-        this.fileProcessorService.mergeFile(channel);
+        this.fileProcessorService.mergeFile(channel, fileName);
         return ResponseEntity.ok("downloaded");
     }
 
@@ -57,7 +52,7 @@ public class MediaUploaderController {
     public ResponseEntity<BaseResponse<String>> helloWorld(@RequestBody(required = false) @NotNull BaseRequest<?> request) throws InterruptedException {
         log.info("request - {}", request.toString());
         Thread.sleep(5000);
-        return ResponseEntity.ok(new BaseResponse<String>(
+        return ResponseEntity.ok(new BaseResponse<>(
                 request.getRequestId(),
                 request.getRequestTime(),
                 LocalDateTime.now(),
